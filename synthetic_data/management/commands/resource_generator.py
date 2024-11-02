@@ -8,7 +8,7 @@ import uuid
 
 class Command(BaseCommand):
     """
-    Commands for managing datatypes
+    Command for creating performance evaluation data
 
     """
 
@@ -47,13 +47,12 @@ class Command(BaseCommand):
             options = [c.value for c in models.Value.objects.raw(sql)]
         return options[randrange(len(options))]
 
-
     def get_domain_list_value(self):
         options = ["6f34cecb-c148-4b1a-a591-8eaf543811bb","c1d7434f-dc22-41ca-bb66-e1f8108271d9","f29d36a2-ee37-495e-afe5-b8a664ae835c"]
         # options = ['uno', 'dos', 'tres']
         # print(options)
         return options[randrange(len(options))]
-    
+
     def get_date_value(self):
         return datetime.strftime(datetime.now(), "%Y-%m-%d")
 
@@ -75,13 +74,11 @@ class Command(BaseCommand):
         x = uniform(minx, maxx) 
         y = uniform(miny, maxy)
         return f"GEOMETRYCOLLECTION (POINT ({x} {y}))"
-    
 
     def get_edtf(self, min=1000, max=2024):
         range = [randrange(min, max), randrange(min, max)]
         range.sort()
         return f"{range[0]}/{range[1]}"
-
 
     def create_resource(self, resourceid, record):
         self.created.append(resourceid)
