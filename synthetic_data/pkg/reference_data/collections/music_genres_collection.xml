@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <skos:Collection rdf:about="http://afs7:8000/a4cfe974-0e0c-4c67-9854-c1bd0c625c09">
+    <skos:prefLabel xml:lang="en">{"id": "ac0da4c8-7617-44b8-8c0f-257c11a692a6", "value": "Music Genres"}</skos:prefLabel>
+    <skos:member>
+      <skos:Concept rdf:about="http://afs7:8000/76ac6979-8ad2-4661-8243-1afb1c20cdf2"/>
+    </skos:member>
+    <skos:member>
+      <skos:Concept rdf:about="http://afs7:8000/7b56565c-05af-45be-90ba-16e1a4e25b2c"/>
+    </skos:member>
+    <skos:member>
+      <skos:Concept rdf:about="http://afs7:8000/7136f34b-882a-45c1-88b4-cb37d05b90fb"/>
+    </skos:member>
+  </skos:Collection>
+</rdf:RDF>
