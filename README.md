@@ -1,4 +1,4 @@
-# Welcome to the Arches Project!
+# Arches Synthetic Data
 
 To create resources for the bulk loader run you'll first need to install the package:
 
