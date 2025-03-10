@@ -1,10 +1,12 @@
 from arches.app.models import models
 import csv
 from datetime import datetime
+from django.contrib.gis.geos import GEOSGeometry
 from django.core.management.base import BaseCommand
 import json
 from random import randrange, uniform
 import uuid
+
 
 class Command(BaseCommand):
     """
@@ -32,9 +34,19 @@ class Command(BaseCommand):
 
     created = []
 
+
     def handle(self, *args, **options):
+        self.minx, self.miny, self.maxx, self.maxy = self.get_project_bounds()
         self.write_file(options["dest"], int(options["resources"]))
 
+    def get_project_bounds(self):
+        settings_geom_node = "0e8ffbcf-4148-11e7-a95a-c4b301baab9f"
+        settings_geom_nodegroup = "0e8fdef0-4148-11e7-8330-c4b301baab9f"
+        project_bounds_tile = models.TileModel.objects.get(nodegroup_id=settings_geom_nodegroup)
+        project_bounds = project_bounds_tile.data[settings_geom_node]
+        bounds_geom = GEOSGeometry(json.dumps(project_bounds["features"][0]["geometry"]))
+        return bounds_geom.extent
+    
     def get_concept_values(self, valueid=True):
 
         sql = """select * from relations c join values v on c.conceptidto = v.conceptid 
@@ -71,8 +83,8 @@ class Command(BaseCommand):
         return result
     
     def get_geojson(self, minx=-122, maxx=-120, miny=32, maxy=39):
-        x = uniform(minx, maxx) 
-        y = uniform(miny, maxy)
+        x = uniform(self.minx, self.maxx) 
+        y = uniform(self.miny, self.maxy)
         return f"GEOMETRYCOLLECTION (POINT ({x} {y}))"
 
     def get_edtf(self, min=1000, max=2024):
